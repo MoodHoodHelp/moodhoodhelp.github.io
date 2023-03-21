@@ -1,0 +1,21 @@
+# Introduction
+
+The API described in this guide enables the development of effective and scalable video communication solutions. This guide describes the main concepts and terms used for development and embedding video conference functionality including examples of using API methods. To start using this API each client needs to get the `clientId` identifier and create a personal `access_token`. This can be done in the user account or you can contact API developers to get your token. These credentials are used for authorization while making API requests. See details in [Authorization](auth.md) section.
+
+## Spaces and rooms for broadcasting 
+
+While using this API you will operate the terms of `space` and `room`. Each client works within their own space, where a single room is created for each broadcasting like videoconference or webinar. The owner can manage access to space and rooms, making them public or private.
+
+## User access
+
+Public spaces are open for every user. Access to a private space is limited by default, only space creators or moderators have it. Special `user_tokens` are created to grant access to space or room for other users. These tokens are generated using the API method and then sent to users as specially formed invitation links. When users click the link, they activate their access to the space or room. Each `user_token` can be used only once and gets invalid after activation.
+
+## Working with API
+
+The toolkit includes a set of REST API methods. Each method is a HTTP request with certain parameters. Only authorized requests are supported - each request should have a special access token in the header section of the request. There are several types of tokens. Some methods need authorization as client and require client token, some methods need authorization as user and require user token. Tokens are unique for each client or user. Method parameters are passed in the body of the request in JSON format. Server sends response data also in JSON format.
+
+**Note!** This guide doesn't provide the full description of each API method. There is a link to *Swagger* for each method with complete specification of request and response data. You need to contact API developer to get your login and password to access this *Swagger* site.
+
+## Embedding conference to the website
+
+When space, rooms and other entities are created with API methods, it is necessary to embed a special `iFrame` object to the website to boradcast a conference there. The object code is added to the HTML code of the webpage and it contains all attributes and playback parameters, e.g. space identifier, allowed users and their tokens, permissions to use camera, microphone, etc.

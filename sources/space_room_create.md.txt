@@ -1,0 +1,120 @@
+# Creating space and rooms
+
+The API has methods to work with user `spaces` and `rooms`. A single `space` is created for each client to manage all their broadcasting. A `room` for every single broadcasting should be created within a `space`. The [user token](user-token) is used for authorization when creating spaces and rooms.
+
+## Creating a new space
+
+`createSpaces` request with a mandatory `name` parameter is used to create a new `space` with the specified name. The following attributes can be set up for the space in the body of the request:
+* **name** - space name,
+* **description** - description of the space,
+* **logo** - link to the logo picture for the space,
+* **isPublic** - access modifier for the space.
+
+`isPublic: true` parameter should be specified to create public space. In case of `isPublic: false`, access to all space rooms is granted only to the space creator or moderator. Complete request specification can be found in [Swagger](https://moodhood.online/doc/#/Spaces/createSpace).
+
+As a result of the successful request a new space is created according to the given request parameters and server returns the space identifier.
+
+Example of `createSpaces` request:
+
+**POST  https://moodhood.online/v1/spaces**
+
+```{code-block} json 
+{
+  "isPublic": true,
+  "name": "Some test space",
+  "description": "Space where my team will have all future calls",
+  "logo": "https://server.com/images/png-clipart-myspace-logo.png"
+}
+```
+
+Code example for cURL:
+
+```{code-block}
+curl --location --request POST 'https://moodhood.online/v1/spaces' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoiZXZ5ZlJWRWsyRGozVFFsYzF5UnBLIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NTc1ODAwMiwiZXhwIjoxNjU2MzYyODAyfQ.hzXW-dHJD0TUtLY22yefmZogvSanEbb70zRo4Kku98A' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+ "isPublic": true,
+ "name": "Some test space",
+ "description": "Space where my team will have all future calls"
+}'
+```
+
+A new space is created and server returns its identifier in the response body and status code 200 for successful request. The space identifier is used in other requests, like adding rooms to the space.
+
+Response body:
+
+```{code-block} json
+{
+  "id": "60d55c0eb9ef88ab17b0aabb"
+}
+```
+
+(room-create)=
+
+## Creating a new room 
+
+`createRooms` request with a `spaceId` passed as a part of the URL is used to add a room into that space. You get `spaceId` in response to `createSpaces` request (see above). The `name` parameter in the body of the request with a name for a new room is mandatory. The following attributes can be set up for the room in the body of the request:
+
+* **name** - name for the room,
+* **isScreensharingAllowed** - is it allowed or not to share the screen during the broadcasting in the room,
+* **isChatAllowed** - is chat for users available or not,
+* **isPublic** - access modifier for the space,
+* **type** - room type, that can be a lesson or webinar. 
+ 
+Two types of room are available:
+* **lesson** - for lessons, where users can turn on camera, microphone, and share their screen,
+* **webinar** - for webinars, where only room creator or moderator can go on the air, and other users can only watch and listen. 
+
+Complete request specification can be found in [Swagger](https://moodhood.online/doc/#/SpaceRooms/createRoom).
+
+As a result of the successful request a new room in the space is created according to the given request parameters.
+
+Example of `createRooms` request:
+
+**POST  https://moodhood.online/v1/spaces/60d55c0eb9ef88ab17b0aabb/rooms**
+
+where *60d55c0eb9ef88ab17b0aabb* is a `spaceId`.
+
+```{code-block} json 
+{
+  "name": "string",
+  "isPublic": true,
+  "isScreensharingAllowed": true,
+  "isChatAllowed": true,
+  "type": "lesson"
+}
+```
+
+Example of cURL code:
+
+```{code-block}
+curl --location --request POST 'https://moodhood.online/v1/spaces/62b0e24a81ad6df4bb583c58/rooms' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoiZXZ5ZlJWRWsyRGozVFFsYzF5UnBLIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NTc1ODAwMiwiZXhwIjoxNjU2MzYyODAyfQ.hzXW-dHJD0TUtLY22yefmZogvSanEbb70zRo4Kku98A' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+ "name": "string",
+ "isPublic": true,
+ "isScreensharingAllowed": true,
+ "isChatAllowed": true,
+ "type": "lesson"
+}'
+```
+
+A new room is created and the following data is returned in the response body for a successful request.
+
+Response body:
+
+```{code-block} json
+{
+	"alias": "EGBYWoMZJe",
+	"id": "62b0e25e3dc082dc7502d273",
+	"channelId": "62b0e25e7f20b37190ff5e0a"
+}
+```
+
+where:
+
+* id - a full room identifier,
+* alias - a short link for the room to use in other requests instead of the identifier,
+* channelId - service data, not used in other requests.

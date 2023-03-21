@@ -1,0 +1,50 @@
+# How to add a room with a conference to your site using iFrame
+
+You can broadcast a conference in your room at another website. To do this just add an `iFrame` element with specified attributes to the HTML code of your webpage.
+
+**Note**. Using HTTPS should be configured in your website settings.
+
+Example of iFrame code:
+
+```{code-block} html
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <title>Some title</title>
+ </head>
+ <body>
+  <p>This is the iFrame block with broadcast</p>
+  <iframe
+    src="https://moodhood.online/room/<room_id>?
+    participantName=JohnSmith&refreshToken=someTokenHere"
+    id="userplayer"
+    frameborder="0"
+    width="880px"
+    height="595px"
+    allow="camera;microphone;fullscreen;accelerometer;autoplay;clipboard-write;encrypted-media;display-capture;gyroscope;picture-in-picture;" allowusermedia>
+  </iframe>  
+ </body>
+</html>
+```
+
+The `iFrame` element has the following attributes:
+
+* **src** - the URL with room id or alias (see. [Creating a room](room-create)) to access the room. The URL can have some parameters going after the “?” symbol. These are `participantName` and `refreshToken` of a user for silent authorization.
+* **id** - deprecated attribute for iFrame element, left for compatibility with earlier browser versions, the value can be any one.
+* **frameborder** - border width around the frame (left it 0).
+* **width/height** - width and height of a frame to display it on a webpage.
+* **allow** - allowed functions and permissions for the room listed by “;”. For example, the following permissions can turned on/off:
+   * *camera* - using camera is allowed;
+   * *microphone* - using microphone is allowed;
+   * *fullscreen* - full screen mode is allowed;
+   * *accelerometer* - using accelerometer is enabled (for mobile devices);
+   * *autoplay* - autoplay is enabled; 
+   * *clipboard-write* - using clipboard to copy data is allowed;
+   * *encrypted-media* - using *Encrypted Media Extension API* is enabled, that allows to manage media content playing on a webpage;
+   * *display-capture* - capturing the screen during the broadcast is allowed;
+   * *gyroscope* - using gyroscope is enabled;
+   * *picture-in-picture* - picture-in-picture mode is allowed;
+   * *allowusermedia* - a special permission for users to use their camera and microphone.
+
+Adding a `none` keyword after `allow` for any permission means turning off this function. For example, *allow = camera \`none\`* means that using a camera is not allowed.

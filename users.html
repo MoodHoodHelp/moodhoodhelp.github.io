@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Managing users &#8212; moodhood  documentation</title>
+<script>
+  document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+  document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
+</script>
+
+  <!-- Loaded before other Sphinx assets -->
+  <link href="static/styles/theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+<link href="static/styles/pydata-sphinx-theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+
+
+  <link rel="stylesheet"
+    href="static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="static/pygments.css" />
+
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
+
+    <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
+    <script src="static/jquery.js"></script>
+    <script src="static/underscore.js"></script>
+    <script src="static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="How to add a room with a conference to your site using iFrame" href="iframe.html" />
+    <link rel="prev" title="Setting up space and room parameters" href="space_room_config.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="docsearch:language" content="en">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+    <div class="bd-header-announcement container-fluid" id="banner">
+      
+
+    </div>
+
+    
+    <nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="bd-header__inner container-xl">
+
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title"><h1>Quickstart</h2></p>
+  
+</a>
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="fas fa-bars"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <span id="theme-switch" class="btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="bd-container container-xl">
+      <div class="bd-container__inner row">
+          
+
+<!-- Only show if we have sidebars configured, else just a small margin  -->
+<div class="bd-sidebar-primary col-12 col-md-3 bd-sidebar">
+  <div class="sidebar-start-items">
+<h3><a href="index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auth.html">Authorization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="space_room_create.html">Creating space and rooms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="space_room_config.html">Setting up space and room parameters</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Managing users</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-new-user">Creating a new user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#managing-user-access-rights">Managing user access rights</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="iframe.html">How to add a room with a conference to your site using iFrame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webhooks.html">Monitoring events in the space</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  </div>
+  <div class="sidebar-end-items">
+  </div>
+</div>
+
+
+          
+
+
+<div class="bd-sidebar-secondary d-none d-xl-block col-xl-2 bd-toc">
+  
+    
+    <div class="toc-item">
+      
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#creating-a-new-user">
+   Creating a new user
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#managing-user-access-rights">
+   Managing user access rights
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-invite-for-a-user">
+     Creating invite for a user
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#activating-invite">
+     Activating invite
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#granting-access-rights-to-the-room">
+     Granting access rights to the room
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#granting-access-to-the-room-for-the-unregistered-user">
+     Granting access to the room for the unregistered user
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+</nav>
+    </div>
+    
+    <div class="toc-item">
+      
+    </div>
+    
+  
+</div>
+
+
+          
+          
+          <div class="bd-content col-12 col-md-9 col-xl-7">
+              
+              <article class="bd-article" role="main">
+                
+  <div class="section" id="managing-users">
+<h1>Managing users<a class="headerlink" href="#managing-users" title="Permalink to this heading">#</a></h1>
+<p>A space owner can invite other users to join broadcasting and manage users’ access rights for each room. But first of all it is necessary to create a user account for each user in the system.</p>
+<div class="section" id="creating-a-new-user">
+<h2>Creating a new user<a class="headerlink" href="#creating-a-new-user" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">createUser</span></code> request is used to add a new user account. User data is passed in the body of the request. The following parameters are required:</p>
+<ul class="simple">
+<li><p><strong>email</strong> - user email address,</p></li>
+<li><p><strong>username</strong> - username to login,</p></li>
+<li><p><strong>password</strong> - user password.</p></li>
+</ul>
+<p>Some more parameters can be passed additionally. Complete request specification can be found in <a class="reference external" href="https://moodhood.online/doc/#/Users/createNewUser">Swagger</a>.</p>
+<p><strong>Important!</strong> <code class="docutils literal notranslate"><span class="pre">createUser</span></code> request requires authorization with <a class="reference internal" href="auth.html#client-token"><span class="std std-ref">user token</span></a>, not client token.</p>
+<p>Example of <code class="docutils literal notranslate"><span class="pre">createUser</span></code> request:</p>
+<p><strong>POST  https://moodhood.online/v1/users</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;some-email@example.com&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gmi28abc&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Some Username Here&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;phone&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;+79671234567&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;captchaToken&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Example of cURL code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">location</span> <span class="o">--</span><span class="n">request</span> <span class="n">POST</span> <span class="s1">&#39;https://moodhood.online/v1/users&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoiSzZEX1ZNQWRrc25CQnpjaTJnRlFBIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NTc0MTEyOSwiZXhwIjoxNjU2MzQ1OTI5fQ.Qy-zwBGwjyWzPF8uXYtla9IOvCfOCeQ9uzCaUo8Q7pM&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> \
+<span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">raw</span> <span class="s1">&#39;{</span>
+ <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;some-email@example.com&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;gmi28abc&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;Some Username Here&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;phone&quot;</span><span class="p">:</span> <span class="s2">&quot;+79671234567&quot;</span>
+<span class="p">}</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<p>A new user is registered in the system as a result of successful request and server returns user ID:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;60cb1fd41f46ac12ff0eec79&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="managing-user-access-rights">
+<h2>Managing user access rights<a class="headerlink" href="#managing-user-access-rights" title="Permalink to this heading">#</a></h2>
+<div class="section" id="creating-invite-for-a-user">
+<h3>Creating invite for a user<a class="headerlink" href="#creating-invite-for-a-user" title="Permalink to this heading">#</a></h3>
+<p>Only users who have invite to the space and room can join the broadcast in this room.</p>
+<p><strong>Note</strong>. Public spaces and rooms are available to join for any user without invite.</p>
+<p><code class="docutils literal notranslate"><span class="pre">createInvite</span></code> request is used to grant access to the space for a user. The <code class="docutils literal notranslate"><span class="pre">spaceId</span></code> is passed as part of the URL and <code class="docutils literal notranslate"><span class="pre">role</span></code> parameter is passed in the body of the request. The <code class="docutils literal notranslate"><span class="pre">role</span></code> can have two values:</p>
+<ul class="simple">
+<li><p><strong>role_space_moderator</strong> - for moderators,</p></li>
+<li><p><strong>role_space_user</strong> - for users.</p></li>
+</ul>
+<p>Complete request specification can be found in <a class="reference external" href="https://moodhood.online/doc/#/SpaceInvites/createInvite">Swagger</a>.</p>
+<p>Invite ID is generated and returns as a result of this request. Invite must be activated (see next).</p>
+<p>Example of <code class="docutils literal notranslate"><span class="pre">createInvite</span></code> request:</p>
+<p><strong>POST  https://moodhood.online/v1/spaces/60d55c0eb9ef88ab17b0aabb/invites</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;role_space_moderator&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Example of cURL code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">location</span> <span class="o">--</span><span class="n">request</span> <span class="n">POST</span> <span class="s1">&#39;https://moodhood.online/v1/spaces/62bcc725721aeb718445daf7/invites&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoic2YxOHFtdkV4Ymdzc2pNV0hRNWVyIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NjUzODg2NCwiZXhwIjoxNjU3MTQzNjY0fQ.bNopnFmGc7bEX8Jy8GkcojCA1SGy1wm7xIhFbO9kzVY&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoic2YxOHFtdkV4Ymdzc2pNV0hRNWVyIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NjUzODg2NCwiZXhwIjoxNjU3MTQzNjY0fQ.bNopnFmGc7bEX8Jy8GkcojCA1SGy1wm7xIhFbO9kzVY; refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6InJlZnJlc2hUb2tlbiIsImNJZCI6IjYyYTA5ZmM3MDJmODZjZTM3YTkzODZmMSIsImp0aSI6ImRoUXhxM2ZyV1V0QktOZUhsd1o3cCIsInNnbiI6ImI4MTEwZjhmYjYiLCJpYXQiOjE2NTY1Mzg4NjQsImV4cCI6MTY1ODM1MzI2NH0.INhr4aj0cY-l-CbyFL0KkV4nz-2-vmRMpdVB2MWTg2o; trClId=LhAdDHgbA5gqFpklo8rw&#39;</span> \
+<span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">raw</span> <span class="s1">&#39;{</span>
+ <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;role_space_moderator&quot;</span>
+<span class="p">}</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<p>Response body:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;62bccb101f211e947a00da47&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Invite ID is returned in the response body.</p>
+</div>
+<div class="section" id="activating-invite">
+<h3>Activating invite<a class="headerlink" href="#activating-invite" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">activateInvite</span></code> request is used to activate invite for the space. This request requires authorization with <code class="docutils literal notranslate"><span class="pre">access_token</span></code> of that user to whom access is to be granted. <code class="docutils literal notranslate"><span class="pre">spaceId</span></code> and <code class="docutils literal notranslate"><span class="pre">inviteId</span></code> are passed in the request URL. The request body is empty. Complete method specification can be found in <a class="reference external" href="https://moodhood.online/doc/#/SpaceInvites/activateInvite">Swagger</a>.</p>
+<p>Example of <code class="docutils literal notranslate"><span class="pre">activateInvite</span></code> request:</p>
+<p><strong>POST  https://moodhood.online/v1/spaces/62bcc725721aeb718445daf7/invites/62bccb101f211e947a00da47/activate</strong></p>
+<p>where <em>62bcc725721aeb718445daf7</em> is a space identifier and <em>62bccb101f211e947a00da47</em> is an invite identifier.</p>
+<p>Example of cURL code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">location</span> <span class="o">--</span><span class="n">request</span> <span class="n">POST</span> <span class="s1">&#39;https://moodhood.online/v1/spaces/62bcc725721aeb718445daf7/invites/62bccb101f211e947a00da47/activate&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoic2YxOHFtdkV4Ymdzc2pNV0hRNWVyIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NjUzODg2NCwiZXhwIjoxNjU3MTQzNjY0fQ.bNopnFmGc7bEX8Jy8GkcojCA1SGy1wm7xIhFbO9kzVY&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoic2YxOHFtdkV4Ymdzc2pNV0hRNWVyIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NjUzODg2NCwiZXhwIjoxNjU3MTQzNjY0fQ.bNopnFmGc7bEX8Jy8GkcojCA1SGy1wm7xIhFbO9kzVY; refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6InJlZnJlc2hUb2tlbiIsImNJZCI6IjYyYTA5ZmM3MDJmODZjZTM3YTkzODZmMSIsImp0aSI6ImRoUXhxM2ZyV1V0QktOZUhsd1o3cCIsInNnbiI6ImI4MTEwZjhmYjYiLCJpYXQiOjE2NTY1Mzg4NjQsImV4cCI6MTY1ODM1MzI2NH0.INhr4aj0cY-l-CbyFL0KkV4nz-2-vmRMpdVB2MWTg2o; trClId=LhAdDHgbA5gqFpklo8rw&#39;</span>
+</pre></div>
+</div>
+<p>The user defined by <code class="docutils literal notranslate"><span class="pre">access_token</span></code> gets access to the space as a result of this request.</p>
+<p>Each invite can be used only once and becomes invalid after activation.</p>
+</div>
+<div class="section" id="granting-access-rights-to-the-room">
+<h3>Granting access rights to the room<a class="headerlink" href="#granting-access-rights-to-the-room" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">grantRole</span></code> request is used to grant access to the room. <code class="docutils literal notranslate"><span class="pre">spaceID</span></code> and <code class="docutils literal notranslate"><span class="pre">roomId</span></code> parameters are passed as a part of the URL with <code class="docutils literal notranslate"><span class="pre">userId</span></code> and <code class="docutils literal notranslate"><span class="pre">role</span></code> passed in the body of the request. There are two types of role:</p>
+<ul class="simple">
+<li><p><strong>role_room_user</strong> - for users,</p></li>
+<li><p><strong>role_room_moderator</strong> - for moderators.</p></li>
+</ul>
+<p>Complete request specification can be found in <a class="reference external" href="https://moodhood.online/doc/#/RoomRoles/grantRoleToUserAtRoom">Swagger</a>.</p>
+<p>The user is granted the defined role as a result of successful request.</p>
+<p>Example of <code class="docutils literal notranslate"><span class="pre">grantRole</span></code> request:</p>
+<p><strong>POST  https://moodhood.online/v1/spaces/60d55c0eb9ef88ab17b0aabb/rooms/60d55c0eb9ef88ab17b0aabb/roles</strong></p>
+<p>where <em>60d55c0eb9ef88ab17b0aabb</em> is the space ID and <em>60d55c0eb9ef88ab17b0aabb</em> is the room ID.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;targetUserId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;60d55c0eb9ef88ab17b0aabb&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;role_room_user&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Example of cURL code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">location</span> <span class="o">--</span><span class="n">request</span> <span class="n">POST</span> <span class="s1">&#39;https://moodhood.online/v1/spaces/62bcc725721aeb718445daf7/rooms/62bcc7341f211e444300da37/roles&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoic2YxOHFtdkV4Ymdzc2pNV0hRNWVyIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NjUzODg2NCwiZXhwIjoxNjU3MTQzNjY0fQ.bNopnFmGc7bEX8Jy8GkcojCA1SGy1wm7xIhFbO9kzVY&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6InJlZnJlc2hUb2tlbiIsImNJZCI6IjYyYTA5ZmM3MDJmODZjZTM3YTkzODZmMSIsImp0aSI6ImRoUXhxM2ZyV1V0QktOZUhsd1o3cCIsInNnbiI6ImI4MTEwZjhmYjYiLCJpYXQiOjE2NTY1Mzg4NjQsImV4cCI6MTY1ODM1MzI2NH0.INhr4aj0cY-l-CbyFL0KkV4nz-2-vmRMpdVB2MWTg2o; trClId=LhAdDHgbA5gqFpklo8rw&#39;</span> \
+<span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">raw</span> <span class="s1">&#39; {</span>
+ <span class="s2">&quot;targetUserId&quot;</span><span class="p">:</span> <span class="s2">&quot;60d55c0eb9ef88ab17b0aabb&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;role_room_user&quot;</span>
+<span class="p">}</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<p>Server returns response code 200 for a successful request and the user gets access rights to the room according to the role.</p>
+</div>
+<div class="section" id="granting-access-to-the-room-for-the-unregistered-user">
+<h3>Granting access to the room for the unregistered user<a class="headerlink" href="#granting-access-to-the-room-for-the-unregistered-user" title="Permalink to this heading">#</a></h3>
+<p>Temporary access to the room can be granted to the user that is not registered. <code class="docutils literal notranslate"><span class="pre">generateAccess</span></code> request can be used for this. <code class="docutils literal notranslate"><span class="pre">spaceID</span></code> and <code class="docutils literal notranslate"><span class="pre">roomId</span></code> parameters are passed as a part of the URL with <code class="docutils literal notranslate"><span class="pre">userId</span></code> and <code class="docutils literal notranslate"><span class="pre">role</span></code> passed in the body of the request. There are two types of role:</p>
+<ul class="simple">
+<li><p><strong>user</strong> - for users,</p></li>
+<li><p><strong>moderator</strong> - for moderators.</p></li>
+</ul>
+<p><strong>Note</strong>. Only a user who has created the room, or who has moderator role in the room - but not a space owner - can run this request to invite another user.</p>
+<p>Some more parameters can be passed in the body of the request:</p>
+<ul class="simple">
+<li><p><strong>ttl</strong> - lifetime (in seconds) for the link, the default value is 86400 seconds (24h),</p></li>
+<li><p><strong>isPermanent</strong> - <code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code> value that defines if the link is permanent, that means it can be used again within the <code class="docutils literal notranslate"><span class="pre">ttl</span></code> period, or it is a one-time link, that becomes invalid after the first use.</p></li>
+<li><p><strong>externalUserId</strong> - any alphanumeric identifier, used for matching a user with another user account in any external service, for analytical purposes for example.</p></li>
+</ul>
+<p>Complete request specification can be found in <a class="reference external" href="https://moodhood.online/doc/#/RoomGenerateAccess/roomGenerateAccess">Swagger</a>.</p>
+<p>Example of <code class="docutils literal notranslate"><span class="pre">generateAccess</span></code> request:</p>
+<p><strong>POST  https://moodhood.online/v1/spaces/60d55c0eb9ef88ab17b0aabb/rooms/60d55c0eb9ef88ab17b0aabb/generate-access</strong></p>
+<p>where <em>60d55c0eb9ef88ab17b0aabb</em> is the space ID, <em>60d55c0eb9ef88ab17b0aabb</em> is the room ID.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;JohnSmith&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;externalUserId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;ttl&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">86400</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;isPermanent&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Example of cURL code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">location</span> <span class="o">--</span><span class="n">request</span> <span class="n">POST</span> <span class="s1">&#39;https://moodhood.online/v1/spaces/62bcc725721aeb718445daf7/rooms/62bcc7341f211e444300da37/generate-access&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoic2YxOHFtdkV4Ymdzc2pNV0hRNWVyIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NjUzODg2NCwiZXhwIjoxNjU3MTQzNjY0fQ.bNopnFmGc7bEX8Jy8GkcojCA1SGy1wm7xIhFbO9kzVY&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6InJlZnJlc2hUb2tlbiIsImNJZCI6IjYyYTA5ZmM3MDJmODZjZTM3YTkzODZmMSIsImp0aSI6ImRoUXhxM2ZyV1V0QktOZUhsd1o3cCIsInNnbiI6ImI4MTEwZjhmYjYiLCJpYXQiOjE2NTY1Mzg4NjQsImV4cCI6MTY1ODM1MzI2NH0.INhr4aj0cY-l-CbyFL0KkV4nz-2-vmRMpdVB2MWTg2o; trClId=LhAdDHgbA5gqFpklo8rw&#39;</span> \
+<span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">raw</span> <span class="s1">&#39; {</span>
+  <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;JohnSmith&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;externalUserId&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;ttl&quot;</span><span class="p">:</span> <span class="mi">86400</span><span class="p">,</span>
+  <span class="s2">&quot;isPermanent&quot;</span><span class="p">:</span> <span class="n">true</span>
+<span class="p">}</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<p>Response body:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
+  &quot;url&quot;: https://moodhood.online/room/hMInKY6FoM?participantName=JohnSmith&amp;accessToken=someAccessToken
+}
+</pre></div>
+</div>
+<p>The user is granted access rights according to the defined role for a successful request. And server returns access link for the user in the response body, like:</p>
+<p><strong>https://moodhood.online/room/hMInKY6FoM?participantName=JohnSmith&amp;accessToken=someAccessToken</strong></p>
+<p>This URL has a <code class="docutils literal notranslate"><span class="pre">participantName</span></code> parameter with a value of <code class="docutils literal notranslate"><span class="pre">username</span></code>, given in the request body, and generated <code class="docutils literal notranslate"><span class="pre">accessToken</span></code> for the user.</p>
+</div>
+</div>
+</div>
+
+
+              </article>
+              
+
+              
+              <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="space_room_config.html" title="previous page">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">Setting up space and room parameters</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="iframe.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">How to add a room with a conference to your site using iFrame</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
+</div>
+              </footer>
+              
+          </div>
+          
+      </div>
+    </div>
+
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695"></script>
+
+<footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    <p class="copyright">
+    &copy; Copyright 2022, moodhood.<br>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br>
+</p>
+  </div>
+  
+</div>
+</footer>
+  </body>
+</html>

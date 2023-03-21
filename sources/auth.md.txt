@@ -1,0 +1,138 @@
+# Authorization
+
+Using API requires authorization with a special `access_token`. There are different types of access to perform operations and different kinds of token are used. First of all it is necessary to generate the client access token. It allows viewing of public entities, for example rooms. It is also used for authorization to generate user access tokens. User tokens can further be used to generate all entities, like new spaces and rooms.
+
+To start working with the API you need to contact API developers and apply for your `clientID` and `client_secret`. Or you can generate them in your user account. Select **Integration** menu item:
+
+```{image} images/menu.png
+:align: center
+```
+---
+
+When **Integration** form opens click **Get** at **ClientId** field. When your `clientId` is generated, click **Refresh** at **Client secret** field.   
+
+```{image} images/integration.png
+:align: center
+```
+--- 
+
+Here are examples of generated `clientID` and `client_secret` values:
+
+```{code-block}
+{
+ “clientId” : “john-smith”,
+ “clientSecret” : “VTytkTR7ZHH5nLhoWCLjymrUJjKBzfs4”
+}
+
+```
+---
+
+Having them you need to generate your client token with `getAccessToken` method. 
+
+(client-token)=
+
+## Generating client access token
+
+To get your client access token, make a request with the `getAccessToken` method and pass your `clientId` and `client_secret` in the request body. Also include `grant_type` parameter with a value `client_credentials` to the request body. Complete request specification can be found in [Swagger](https://moodhood.online/doc/#/Auth/getAccessToken).
+
+Example of `getAccessToken` request:
+
+**POST https://moodhood.online/v1/auth/token**
+
+```{code-block} json
+{
+ "client_id": "john-smith",
+ "client_secret": "VTytkTR7ZHH5nLhoWCLjymrUJjKBzfs4",
+ "grant_type": "client_credentials"
+}
+```
+
+Response body:
+
+```{code-block} json
+{
+  "token_type": "Bearer",
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGM4YzZmMGE2MGY1Yzc0OGQxZWYyN2UiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjBjOGM2ZjBhNjBmNWM3NDhkMWVmMjdlIiwianRpIjoiNzlhZjgwMDM4YTdmNSIsInNnbiI6IjA5OGY2YmNkNDYiLCJpYXQiOjE2MjM4NDU0MTIsImV4cCI6MTYyNDQ1MDIxMn0.jfzFAs_XM",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGM4YzZmMGE2MGY1Yzc0OGQxZWYyN2UiLCJhdWQiOiJ1c2VyIiwidHlwZSI6InJlZnJlc2hUb2tlbiIsImNJZCI6IjYwYzhjNmYwYTYwZjVjNzQ4ZDFlZjI3ZSIsImp0aSI6IjU0ZjM4NDQxZmU1MmQiLCJzZ24iOiIwOThmNmJjZDQ2IiwiaWF0IjoxNjIzODQ1NDEyLCJleHAiOjE2MjY0Mzc0MTJ9.Gj8fLaDAX4"
+}
+```
+
+Response contains `access_token` value with the client token.
+
+## Using your client token
+
+To use your client token add a special request header into the `header` section of each request:
+
+```
+Authorization: Bearer <access_token>
+```
+
+`Bearer` here is the name for the used authorization type.
+
+Here is a code example for cURL showing how to use client access token in `Authorization` header:
+
+```{code-block}
+curl --location --request POST 'https://moodhood.online/v1/auth/token' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoiSzZEX1ZNQWRrc25CQnpjaTJnRlFBIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NTc0MTEyOSwiZXhwIjoxNjU2MzQ1OTI5fQ.Qy-zwBGwjyWzPF8uXYtla9IOvCfOCeQ9uzCaUo8Q7pM' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"client_id": "john-smith",
+"client_secret": "VTytkTR7ZHH5nLhoWCLjymrUJjKBzfs4",
+"grant_type": "password",
+"username": "test_user@test.test",
+"password": "123456"
+}'
+
+```
+
+(user-token)=
+
+## Generating user access token
+
+To get your user access token make a request with the `getAccessToken` method. Authorize with your `client_token` in the `Authorization` header of the request. Pass your `clientId` and `client_secret` in the request body. Additionally, the following parameters are included into the body:
+* **grant_type** - type of user authentication (use `password`),
+* **username** - user name,
+* **password** - user password
+
+Complete request specification can be found in [ Swagger](https://moodhood.online/doc/#/Auth/getAccessToken).
+
+Example of `getAccessToken` request:
+
+**POST  https://moodhood.online/v1/auth/token**
+ 
+```{code-block} json
+{
+ "client_id": "john-smith",
+ "client_secret": "VTytkTR7ZHH5nLhoWCLjymrUJjKBzfs4",
+ "grant_type": "password",
+ "username": "test_user@test.test",
+ "password": "123456"
+}
+```
+
+Code example for cURL:
+ 
+```{code-block}
+curl --location --request POST 'https://moodhood.online/v1/auth/token' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoiSzZEX1ZNQWRrc25CQnpjaTJnRlFBIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NTc0MTEyOSwiZXhwIjoxNjU2MzQ1OTI5fQ.Qy-zwBGwjyWzPF8uXYtla9IOvCfOCeQ9uzCaUo8Q7pM' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"client_id": "john-smith",
+"client_secret": "VTytkTR7ZHH5nLhoWCLjymrUJjKBzfs4",
+"grant_type": "password",
+"username": "test_user@test.test",
+"password": "123456"
+}'
+```
+
+Response body:
+
+```{code-block} json
+{
+   "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmEwOWZjNzAyZjg2Y2UzN2E5Mzg2ZjEiLCJhdWQiOiJjbGllbnQiLCJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJjSWQiOiI2MmEwOWZjNzAyZjg2Y2UzN2E5Mzg2ZjEiLCJqdGkiOiI1ZGxDZ0pxRzZ1dFFycjNqSTFjSmMiLCJpYXQiOjE2NTUzMTYwNjgsImV4cCI6MTY1NTkyMDg2OH0.5vTOaqS77Yl-4cYT1WM5DdKbo8-I__bxB2DX5kyFaTA",
+   "token_type": "Bearer",
+   "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmEwOWZjNzAyZjg2Y2UzN2E5Mzg2ZjEiLCJhdWQiOiJjbGllbnQiLCJ0eXBlIjoicmVmcmVzaFRva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoiYXNhZnJfOUJpM1diUnZlTXFYVFhUIiwiaWF0IjoxNjU1MzE2MDY4LCJleHAiOjE2NTcxMzA0Njh9.tjZrOlt35FliWSNPlWX-piFfIyiYAym72h2Yk-eAsxQ"
+}
+```
+
+Response contains `access_token` value - this is a generated user token for authorization. `refresh_token` value is also returned - this is a token used for silent user authorization (see [How to add a room with a conference to your site using iFrame](iframe.md)).

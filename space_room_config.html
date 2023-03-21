@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Setting up space and room parameters &#8212; moodhood  documentation</title>
+<script>
+  document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+  document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
+</script>
+
+  <!-- Loaded before other Sphinx assets -->
+  <link href="static/styles/theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+<link href="static/styles/pydata-sphinx-theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+
+
+  <link rel="stylesheet"
+    href="static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="static/pygments.css" />
+
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
+
+    <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
+    <script src="static/jquery.js"></script>
+    <script src="static/underscore.js"></script>
+    <script src="static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Managing users" href="users.html" />
+    <link rel="prev" title="Creating space and rooms" href="space_room_create.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="docsearch:language" content="en">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+    <div class="bd-header-announcement container-fluid" id="banner">
+      
+
+    </div>
+
+    
+    <nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="bd-header__inner container-xl">
+
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title"><h1>Quickstart</h2></p>
+  
+</a>
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="fas fa-bars"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <span id="theme-switch" class="btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="bd-container container-xl">
+      <div class="bd-container__inner row">
+          
+
+<!-- Only show if we have sidebars configured, else just a small margin  -->
+<div class="bd-sidebar-primary col-12 col-md-3 bd-sidebar">
+  <div class="sidebar-start-items">
+<h3><a href="index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auth.html">Authorization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="space_room_create.html">Creating space and rooms</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Setting up space and room parameters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#space-settings">Space settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#room-settings">Room settings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="users.html">Managing users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="iframe.html">How to add a room with a conference to your site using iFrame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webhooks.html">Monitoring events in the space</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  </div>
+  <div class="sidebar-end-items">
+  </div>
+</div>
+
+
+          
+
+
+<div class="bd-sidebar-secondary d-none d-xl-block col-xl-2 bd-toc">
+  
+    
+    <div class="toc-item">
+      
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#space-settings">
+   Space settings
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#room-settings">
+   Room settings
+  </a>
+ </li>
+</ul>
+
+</nav>
+    </div>
+    
+    <div class="toc-item">
+      
+    </div>
+    
+  
+</div>
+
+
+          
+          
+          <div class="bd-content col-12 col-md-9 col-xl-7">
+              
+              <article class="bd-article" role="main">
+                
+  <div class="section" id="setting-up-space-and-room-parameters">
+<h1>Setting up space and room parameters<a class="headerlink" href="#setting-up-space-and-room-parameters" title="Permalink to this heading">#</a></h1>
+<div class="section" id="space-settings">
+<h2>Space settings<a class="headerlink" href="#space-settings" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">updateSpace</span></code> request is used to change space settings with <code class="docutils literal notranslate"><span class="pre">spaceId</span></code> (see <a class="reference internal" href="space_room_create.html"><span class="doc std std-doc">Creating a space</span></a>) passed as a part of the URL. The following attributes can be set up for the space in the body of the request:</p>
+<ul class="simple">
+<li><p><strong>name</strong> - the space name,</p></li>
+<li><p><strong>description</strong> - description of the space,</p></li>
+<li><p><strong>logo</strong> - a link to the logo picture for the space,</p></li>
+<li><p><strong>isPublic</strong> - access modifier for the space.</p></li>
+</ul>
+<p>As a result of the successful request there will be the space settings updated according to the given request parameters.</p>
+<p>Parameters <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">isPublic</span></code> are mandatory for the request. <code class="docutils literal notranslate"><span class="pre">isPublic</span></code> can take two values - <code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code>. In case of <code class="docutils literal notranslate"><span class="pre">isPublic:</span> <span class="pre">false</span></code> access to all space rooms is granted only to the space creator or moderator. In case of <code class="docutils literal notranslate"><span class="pre">isPublic:</span> <span class="pre">true</span></code> access is granted to all users. Complete request specification can be found in <a class="reference external" href="https://moodhood.online/doc/#/Spaces/updateSpace">Swagger</a>.</p>
+<p>Example of <code class="docutils literal notranslate"><span class="pre">updateSpace</span></code> request:</p>
+<p><strong>PUT https://moodhood.online/v1/spaces/60d55c0eb9ef88ab17b0aabb</strong></p>
+<p>where <em>60d55c0eb9ef88ab17b0aabb</em> is the space identifier.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;isPublic&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Some test space&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Space where my team will have all future calls&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;logo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://server.com/images/someimage.png&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Code example for cURL:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">location</span> <span class="o">--</span><span class="n">request</span> <span class="n">PUT</span> <span class="s1">&#39;https://moodhood-api.livedigital.space/v1/spaces/60d55c0eb9ef88ab17b0aabb&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoiZXZ5ZlJWRWsyRGozVFFsYzF5UnBLIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NTc1ODAwMiwiZXhwIjoxNjU2MzYyODAyfQ.hzXW-dHJD0TUtLY22yefmZogvSanEbb70zRo4Kku98A&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> \
+<span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">raw</span> <span class="s1">&#39;{</span>
+ <span class="s2">&quot;isPublic&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+ <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Some test space&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Space where my team will have all future calls&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;Logo&quot;</span><span class="p">:</span> <span class="s2">&quot;https://server.com/images/png-clipart-myspace-logo.png&quot;</span>
+<span class="p">}</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<p>Space settings are changed and server returns status code 200 for the successful request.</p>
+</div>
+<div class="section" id="room-settings">
+<span id="room-config"></span><h2>Room settings<a class="headerlink" href="#room-settings" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">updateRoom</span></code> request is used to change the room settings, where <code class="docutils literal notranslate"><span class="pre">roomId</span></code> (see <a class="reference internal" href="space_room_create.html#room-create"><span class="std std-ref">Creating a room</span></a>) and <code class="docutils literal notranslate"><span class="pre">spaceId</span></code> (see <a class="reference internal" href="space_room_create.html"><span class="doc std std-doc">Creating a space</span></a>) of the space that room belongs to, are passed as a part of the URL. The following attributes can be set up for the room in the body of the request:</p>
+<ul class="simple">
+<li><p><strong>name</strong> - name for the room,</p></li>
+<li><p><strong>isScreensharingAllowed</strong> - is it allowed or not to share the screen during the broadcasting in the room,</p></li>
+<li><p><strong>isChatAllowed</strong> - is chat for users available or not,</p></li>
+<li><p><strong>isPublic</strong> - access modifier for the space,</p></li>
+<li><p><strong>type</strong> - room type, which can be a lesson or webinar.</p></li>
+</ul>
+<p>Two types of room are available:</p>
+<ul class="simple">
+<li><p><strong>lesson</strong> - for lessons, where users can turn on camera, microphone, and share their screen,</p></li>
+<li><p><strong>webinar</strong> - for webinars, where only room creator or moderator can go on the air, and other users can only watch and listen.</p></li>
+</ul>
+<p>Complete request specification can be found in <a class="reference external" href="https://moodhood.online/doc/#/SpaceRooms/updateRoom">Swagger</a>.</p>
+<p>As a result of the successful request there will be the room settings updated according to the given request parameters.</p>
+<p>Example of <code class="docutils literal notranslate"><span class="pre">updateRoom</span></code> request:</p>
+<p><strong>PUT  https://moodhood.online/v1/spaces/60d55c0eb9ef88ab17b0aabb/rooms/62b0e25e3dc082dc7502d273</strong></p>
+<p>where <em>60d55c0eb9ef88ab17b0aabb</em> is the space identifier and <em>62b0e25e3dc082dc7502d273</em> is the room identifier.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;isPublic&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;isScreensharingAllowed&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;isChatAllowed&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lesson&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Code example for cURL:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">location</span> <span class="o">--</span><span class="n">request</span> <span class="n">PUT</span> <span class="s1">&#39;https://moodhood.online/v1/spaces/62b0e24a81ad6df4bb583c58/rooms/62b0e25e3dc082dc7502d273&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoiZXZ5ZlJWRWsyRGozVFFsYzF5UnBLIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NTc1ODAwMiwiZXhwIjoxNjU2MzYyODAyfQ.hzXW-dHJD0TUtLY22yefmZogvSanEbb70zRo4Kku98A&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> \
+<span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">raw</span> <span class="s1">&#39;{</span>
+ <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;isPublic&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+ <span class="s2">&quot;isScreensharingAllowed&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+ <span class="s2">&quot;isChatAllowed&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+ <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;lesson&quot;</span>
+<span class="p">}</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<p>The room settings are changed and server returns status code 200 for the successful request.</p>
+</div>
+</div>
+
+
+              </article>
+              
+
+              
+              <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="space_room_create.html" title="previous page">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">Creating space and rooms</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="users.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">Managing users</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
+</div>
+              </footer>
+              
+          </div>
+          
+      </div>
+    </div>
+
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695"></script>
+
+<footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    <p class="copyright">
+    &copy; Copyright 2022, moodhood.<br>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br>
+</p>
+  </div>
+  
+</div>
+</footer>
+  </body>
+</html>

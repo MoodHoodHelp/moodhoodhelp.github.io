@@ -1,0 +1,219 @@
+# Managing users 
+
+A space owner can invite other users to join broadcasting and manage users' access rights for each room. But first of all it is necessary to create a user account for each user in the system.
+
+## Creating a new user
+
+`createUser` request is used to add a new user account. User data is passed in the body of the request. The following parameters are required:
+* **email** - user email address,
+* **username** - username to login,
+* **password** - user password.
+
+Some more parameters can be passed additionally. Complete request specification can be found in [Swagger](https://moodhood.online/doc/#/Users/createNewUser).
+
+**Important!** `createUser` request requires authorization with [user token](client-token), not client token.
+
+Example of `createUser` request:
+
+**POST  https://moodhood.online/v1/users**
+
+```{code-block} json 
+{
+  "email": "some-email@example.com",
+  "password": "gmi28abc",
+  "username": "Some Username Here",
+  "phone": "+79671234567",
+  "captchaToken": "string"
+}
+```
+
+Example of cURL code:
+
+```{code-block}
+curl --location --request POST 'https://moodhood.online/v1/users' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoiSzZEX1ZNQWRrc25CQnpjaTJnRlFBIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NTc0MTEyOSwiZXhwIjoxNjU2MzQ1OTI5fQ.Qy-zwBGwjyWzPF8uXYtla9IOvCfOCeQ9uzCaUo8Q7pM' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+ "email": "some-email@example.com",
+ "password": "gmi28abc",
+ "username": "Some Username Here",
+ "phone": "+79671234567"
+}'
+```
+
+A new user is registered in the system as a result of successful request and server returns user ID:
+
+```{code-block} json
+{
+  "id": "60cb1fd41f46ac12ff0eec79"
+}
+```
+
+## Managing user access rights
+
+### Creating invite for a user
+
+Only users who have invite to the space and room can join the broadcast in this room.
+
+**Note**. Public spaces and rooms are available to join for any user without invite. 
+
+`createInvite` request is used to grant access to the space for a user. The `spaceId` is passed as part of the URL and `role` parameter is passed in the body of the request. The `role` can have two values:
+* **role_space_moderator** - for moderators,
+* **role_space_user** - for users.
+
+Complete request specification can be found in [Swagger](https://moodhood.online/doc/#/SpaceInvites/createInvite).
+
+Invite ID is generated and returns as a result of this request. Invite must be activated (see next). 
+
+Example of `createInvite` request:
+
+**POST  https://moodhood.online/v1/spaces/60d55c0eb9ef88ab17b0aabb/invites**
+
+```{code-block} json 
+{
+  "role": "role_space_moderator"
+}
+```
+
+Example of cURL code:
+
+```{code-block}
+curl --location --request POST 'https://moodhood.online/v1/spaces/62bcc725721aeb718445daf7/invites' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoic2YxOHFtdkV4Ymdzc2pNV0hRNWVyIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NjUzODg2NCwiZXhwIjoxNjU3MTQzNjY0fQ.bNopnFmGc7bEX8Jy8GkcojCA1SGy1wm7xIhFbO9kzVY' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoic2YxOHFtdkV4Ymdzc2pNV0hRNWVyIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NjUzODg2NCwiZXhwIjoxNjU3MTQzNjY0fQ.bNopnFmGc7bEX8Jy8GkcojCA1SGy1wm7xIhFbO9kzVY; refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6InJlZnJlc2hUb2tlbiIsImNJZCI6IjYyYTA5ZmM3MDJmODZjZTM3YTkzODZmMSIsImp0aSI6ImRoUXhxM2ZyV1V0QktOZUhsd1o3cCIsInNnbiI6ImI4MTEwZjhmYjYiLCJpYXQiOjE2NTY1Mzg4NjQsImV4cCI6MTY1ODM1MzI2NH0.INhr4aj0cY-l-CbyFL0KkV4nz-2-vmRMpdVB2MWTg2o; trClId=LhAdDHgbA5gqFpklo8rw' \
+--data-raw '{
+ "role": "role_space_moderator"
+}'
+```
+
+Response body:
+
+```
+{
+   "id": "62bccb101f211e947a00da47"
+}
+```
+
+Invite ID is returned in the response body.
+
+### Activating invite 
+
+`activateInvite` request is used to activate invite for the space. This request requires authorization with `access_token` of that user to whom access is to be granted. `spaceId` and `inviteId` are passed in the request URL. The request body is empty. Complete method specification can be found in [Swagger](https://moodhood.online/doc/#/SpaceInvites/activateInvite).
+
+Example of `activateInvite` request:
+
+**POST  https://moodhood.online/v1/spaces/62bcc725721aeb718445daf7/invites/62bccb101f211e947a00da47/activate**
+
+where *62bcc725721aeb718445daf7* is a space identifier and *62bccb101f211e947a00da47* is an invite identifier.
+ 
+Example of cURL code:
+
+```{code-block}
+curl --location --request POST 'https://moodhood.online/v1/spaces/62bcc725721aeb718445daf7/invites/62bccb101f211e947a00da47/activate' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoic2YxOHFtdkV4Ymdzc2pNV0hRNWVyIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NjUzODg2NCwiZXhwIjoxNjU3MTQzNjY0fQ.bNopnFmGc7bEX8Jy8GkcojCA1SGy1wm7xIhFbO9kzVY' \
+--header 'Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoic2YxOHFtdkV4Ymdzc2pNV0hRNWVyIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NjUzODg2NCwiZXhwIjoxNjU3MTQzNjY0fQ.bNopnFmGc7bEX8Jy8GkcojCA1SGy1wm7xIhFbO9kzVY; refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6InJlZnJlc2hUb2tlbiIsImNJZCI6IjYyYTA5ZmM3MDJmODZjZTM3YTkzODZmMSIsImp0aSI6ImRoUXhxM2ZyV1V0QktOZUhsd1o3cCIsInNnbiI6ImI4MTEwZjhmYjYiLCJpYXQiOjE2NTY1Mzg4NjQsImV4cCI6MTY1ODM1MzI2NH0.INhr4aj0cY-l-CbyFL0KkV4nz-2-vmRMpdVB2MWTg2o; trClId=LhAdDHgbA5gqFpklo8rw'
+```
+
+The user defined by `access_token` gets access to the space as a result of this request.
+
+Each invite can be used only once and becomes invalid after activation.
+
+### Granting access rights to the room
+
+`grantRole` request is used to grant access to the room. `spaceID` and `roomId` parameters are passed as a part of the URL with `userId` and `role` passed in the body of the request. There are two types of role:
+* **role_room_user** - for users,
+* **role_room_moderator** - for moderators.
+
+Complete request specification can be found in [Swagger](https://moodhood.online/doc/#/RoomRoles/grantRoleToUserAtRoom).
+
+The user is granted the defined role as a result of successful request.
+
+Example of `grantRole` request:
+
+**POST  https://moodhood.online/v1/spaces/60d55c0eb9ef88ab17b0aabb/rooms/60d55c0eb9ef88ab17b0aabb/roles**
+
+where *60d55c0eb9ef88ab17b0aabb* is the space ID and *60d55c0eb9ef88ab17b0aabb* is the room ID.
+
+```{code-block} json 
+{
+  "targetUserId": "60d55c0eb9ef88ab17b0aabb",
+  "role": "role_room_user"
+}
+```
+
+Example of cURL code:
+
+```{code-block}
+curl --location --request POST 'https://moodhood.online/v1/spaces/62bcc725721aeb718445daf7/rooms/62bcc7341f211e444300da37/roles' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoic2YxOHFtdkV4Ymdzc2pNV0hRNWVyIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NjUzODg2NCwiZXhwIjoxNjU3MTQzNjY0fQ.bNopnFmGc7bEX8Jy8GkcojCA1SGy1wm7xIhFbO9kzVY' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6InJlZnJlc2hUb2tlbiIsImNJZCI6IjYyYTA5ZmM3MDJmODZjZTM3YTkzODZmMSIsImp0aSI6ImRoUXhxM2ZyV1V0QktOZUhsd1o3cCIsInNnbiI6ImI4MTEwZjhmYjYiLCJpYXQiOjE2NTY1Mzg4NjQsImV4cCI6MTY1ODM1MzI2NH0.INhr4aj0cY-l-CbyFL0KkV4nz-2-vmRMpdVB2MWTg2o; trClId=LhAdDHgbA5gqFpklo8rw' \
+--data-raw ' {
+ "targetUserId": "60d55c0eb9ef88ab17b0aabb",
+ "role": "role_room_user"
+}'
+```
+
+Server returns response code 200 for a successful request and the user gets access rights to the room according to the role.
+
+### Granting access to the room for the unregistered user
+
+Temporary access to the room can be granted to the user that is not registered. `generateAccess` request can be used for this. `spaceID` and `roomId` parameters are passed as a part of the URL with `userId` and `role` passed in the body of the request. There are two types of role:
+* **user** - for users,
+* **moderator** - for moderators. 
+
+**Note**. Only a user who has created the room, or who has moderator role in the room - but not a space owner - can run this request to invite another user.
+
+Some more parameters can be passed in the body of the request:
+* **ttl** - lifetime (in seconds) for the link, the default value is 86400 seconds (24h),
+* **isPermanent** - `true` or `false` value that defines if the link is permanent, that means it can be used again within the `ttl` period, or it is a one-time link, that becomes invalid after the first use. 
+* **externalUserId** - any alphanumeric identifier, used for matching a user with another user account in any external service, for analytical purposes for example.
+
+Complete request specification can be found in [Swagger](https://moodhood.online/doc/#/RoomGenerateAccess/roomGenerateAccess).
+
+Example of `generateAccess` request:
+
+**POST  https://moodhood.online/v1/spaces/60d55c0eb9ef88ab17b0aabb/rooms/60d55c0eb9ef88ab17b0aabb/generate-access**
+
+where *60d55c0eb9ef88ab17b0aabb* is the space ID, *60d55c0eb9ef88ab17b0aabb* is the room ID.
+
+```{code-block} json 
+{
+  "username": "JohnSmith",
+  "role": "user",
+  "externalUserId": "string",
+  "ttl": 86400,
+  "isPermanent": true
+}
+```
+
+Example of cURL code:
+
+```{code-block}
+curl --location --request POST 'https://moodhood.online/v1/spaces/62bcc725721aeb718445daf7/rooms/62bcc7341f211e444300da37/generate-access' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiY0lkIjoiNjJhMDlmYzcwMmY4NmNlMzdhOTM4NmYxIiwianRpIjoic2YxOHFtdkV4Ymdzc2pNV0hRNWVyIiwic2duIjoiYjgxMTBmOGZiNiIsImlhdCI6MTY1NjUzODg2NCwiZXhwIjoxNjU3MTQzNjY0fQ.bNopnFmGc7bEX8Jy8GkcojCA1SGy1wm7xIhFbO9kzVY' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFiNWE4NGIwY2U2ZWUzMWIwOTk3YjMiLCJhdWQiOiJ1c2VyIiwidHlwZSI6InJlZnJlc2hUb2tlbiIsImNJZCI6IjYyYTA5ZmM3MDJmODZjZTM3YTkzODZmMSIsImp0aSI6ImRoUXhxM2ZyV1V0QktOZUhsd1o3cCIsInNnbiI6ImI4MTEwZjhmYjYiLCJpYXQiOjE2NTY1Mzg4NjQsImV4cCI6MTY1ODM1MzI2NH0.INhr4aj0cY-l-CbyFL0KkV4nz-2-vmRMpdVB2MWTg2o; trClId=LhAdDHgbA5gqFpklo8rw' \
+--data-raw ' {
+  "username": "JohnSmith",
+  "role": "user",
+  "externalUserId": "string",
+  "ttl": 86400,
+  "isPermanent": true
+}'
+```
+
+Response body:
+
+```{code-block} json 
+{
+  "url": https://moodhood.online/room/hMInKY6FoM?participantName=JohnSmith&accessToken=someAccessToken
+}
+```
+
+The user is granted access rights according to the defined role for a successful request. And server returns access link for the user in the response body, like: 
+
+**https://moodhood.online/room/hMInKY6FoM?participantName=JohnSmith&accessToken=someAccessToken**
+
+This URL has a `participantName` parameter with a value of `username`, given in the request body, and generated `accessToken` for the user.

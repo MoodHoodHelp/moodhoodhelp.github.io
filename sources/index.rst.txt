@@ -1,0 +1,20 @@
+.. documentation master file, created by
+   sphinx-quickstart on Sat Jul  9 15:38:30 2022.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Moodhood API Quickstart
+============================================
+
+This guide contains information how to use the API to add video conference streaming to client's web site. API contains methods to create spaces and rooms for video conference, configure their settings, invite users and manage their access rights.
+
+.. toctree::
+   :maxdepth: 2
+
+   intro.md
+   auth.md
+   space_room_create.md
+   space_room_config.md
+   users.md
+   iframe.md
+   webhooks.md

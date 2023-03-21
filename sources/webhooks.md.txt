@@ -1,0 +1,227 @@
+# Monitoring events in the space
+
+API provides a possibility to subscribe for events using webhooks. This is a kind of integration, when a callback request to the preconfigured URL is made in case of a certain event. As an example of such an event there can be used start or end of the conference. When such an event occurs, a POST request is made, sending a payload to the configured URL. One who integrates the service needs to implement a mechanism to handle this request. Notification delivery is not guaranteed. If a callback request is not processed by the server, it will be repeated with some time interval. 3 attempts are made - if the successful response code is not received after that, the request is not repeated again.
+
+**Note.** Webhooks integration is provided only for spaces with active *Team* or *Business* plans.
+
+Data returned when a callback is created:
+
+```{code-block}
+{
+  "url": "https://some.url",
+  "secret": "g7r0gOSKiQ59prCGXo1H50PACb5ca1mD",
+  "isActive": true
+}
+
+```
+
+Here `url` is the endpoint for the callback request. `secret` is a key value to validate webhook (see below). `isActive: true` is an attribute of an active webhook (webhooks may be temporarily blocked).
+
+When the event happens a callback request is made with a payload of this kind:
+
+```{code-block} json
+{
+  "body": {
+    "eventName": payload.eventName,
+    "roomId": payload.roomId,
+    "spaceId": payload.spaceId,
+  },
+  "signature": string,
+}    
+```
+
+`body` block contains event data: its name, and space, and room identifiers for this event. There is also a `signature` string, that is a **HMAC sha256** signature for data in `body` with `secret` value (see webhook data above) as a signature key.
+
+User who has created a webhook knows the `secret`. So it is possible to calculate a signature value for data in `body` and compare it with a value returned in `signature`. If these values are equal, then `body` data is valid. If returned and calculated signatures don't match, the callback request is compromised and must be declined.
+
+Example of NodeJS code to calculate signature:
+ 
+```{code-block}
+crypto.createHmac('sha256', secret).update(JSON.stringify(body), 'utf8').digest('hex');
+```
+
+API provides the following methods to work with webhooks.
+
+**Important!** [User token](user-token) of the space owner is used for authorization when creating webhooks.
+
+## Creating webhook
+
+`createWebhook` request is used to create a new webhook. The space identifier is passed as a part of the request URL (see [Creating a space](space_room_create.md)) and `url` parameter in the request body, that is the URL for POST request to make.
+
+Complete request specification can be found in [Swagger](https://moodhood.online/doc/#/WebHook/CreateWebHook).
+
+Example of `createWebhook` request:
+
+**POST https://moodhood.online/v1/spaces/60d55c0eb9ef88ab17b0aabb/webhook**
+
+where *60d55c0eb9ef88ab17b0aabb* is the space identifier.
+
+
+```{code-block} json
+{
+  "url": "https://some.url/"
+}
+```
+
+Example of cURL code:
+
+```{code-block}
+curl --location --request POST 'https://moodhood.online/v1/spaces/62bcc725721aeb718445daf7/webhook' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmEwOWZjNzAyZjg2Y2UzN2E5Mzg2ZjEiLCJhdWQiOiJjbGllbnQiLCJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJjSWQiOiI2MmEwOWZjNzAyZjg2Y2UzN2E5Mzg2ZjEiLCJqdGkiOiI1ZGxDZ0pxRzZ1dFFycjNqSTFjSmMiLCJpYXQiOjE2NTUzMTYwNjgsImV4cCI6MTY1NTkyMDg2OH0.5vTOaqS77Yl-4cYT1WM5DdKbo8-I__bxB2DX5kyFaTA' \
+--header 'Content-Type: text/plain' \
+--data-raw '{
+  "url": "https://some.url/"
+}'
+```
+
+Response body:
+
+```{code-block}
+{
+  "url": "https://some.url",
+  "secret": "g7r0gOSKiQ59prCGXo1H50PACb5ca1mD",
+  "isActive": true
+}
+```
+
+A new webhook is created as a result of the successful request and server returns JSON with the following data: 
+* `url` - the URL for a callback request,
+* `seret` - secret key to validate callback request data,
+* `isActive` - true/false value, indicating that the webhook is active, or disabled (default is `true` for newly created webhooks).
+
+## Updating webhook
+
+You can change `isActive` value for the created webhook to activate/deactivate it. `updateWebhook` request can be used for this. The endpoint is the same as for `createWebhook` request, but the HTTP PUT method is used. The space identifier is passed as a part of the request URL (see [Creating a space](space_room_create.md)) and the following data in the body:
+* `url` - the URL for a callback request,
+* `isActive` - `true` to make webhook active, or `false` to disable webhook.
+
+Complete request specification can be found in [Swagger](https://moodhood.online/doc/#/WebHook/UpdateWebHook).
+
+Example of `createWebhook` request:
+
+**PUT https://moodhood.online/v1/spaces/60d55c0eb9ef88ab17b0aabb/webhook**
+
+where *60d55c0eb9ef88ab17b0aabb* is a space identifier.
+
+
+```{code-block} json
+{
+  "url": "https://some.url/",
+  "isActive": true
+}
+```
+Example of cURL code:
+
+```{code-block}
+curl --location --request PUT 'https://moodhood.online/v1/spaces/62bcc725721aeb718445daf7/webhook' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmEwOWZjNzAyZjg2Y2UzN2E5Mzg2ZjEiLCJhdWQiOiJjbGllbnQiLCJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJjSWQiOiI2MmEwOWZjNzAyZjg2Y2UzN2E5Mzg2ZjEiLCJqdGkiOiI1ZGxDZ0pxRzZ1dFFycjNqSTFjSmMiLCJpYXQiOjE2NTUzMTYwNjgsImV4cCI6MTY1NTkyMDg2OH0.5vTOaqS77Yl-4cYT1WM5DdKbo8-I__bxB2DX5kyFaTA' \
+--header 'Content-Type: text/plain' \
+--data-raw '{
+  "url": "https://some.url/",
+  "isActive": true
+}'
+```
+
+Response body:
+
+```{code-block} json
+{
+  "url": "https://some.url",
+  "isActive": true
+}
+```
+
+Webhook state for the space is updated as a result for the successful request and server returns response with the following data: 
+* `url` - the URL for a callback request,
+* `isActive` - value, indicating that the webhook is turned active (`true`), or disabled (`false`).
+
+## Getting webhook data
+
+`getWebhook` request is used to get webhook data. The endpoint is the same as for `createWebhook` request, but the HTTP GET method is used. Space identifier is passed as a part of the request URL (see [Creating a space](space_room_create.md)).
+
+Complete request specification can be found in [Swagger](https://moodhood.online/doc/#/WebHook/GetWebHook).
+
+Example of `createWebhook` request:
+
+**GET https://moodhood.online/v1/spaces/60d55c0eb9ef88ab17b0aabb/webhook**
+
+where *60d55c0eb9ef88ab17b0aabb* is the space identifier.
+
+Example of cURL code:
+
+```{code-block}
+curl --location --request GET 'https://moodhood.online/v1/spaces/62bcc725721aeb718445daf7/webhook' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmEwOWZjNzAyZjg2Y2UzN2E5Mzg2ZjEiLCJhdWQiOiJjbGllbnQiLCJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJjSWQiOiI2MmEwOWZjNzAyZjg2Y2UzN2E5Mzg2ZjEiLCJqdGkiOiI1ZGxDZ0pxRzZ1dFFycjNqSTFjSmMiLCJpYXQiOjE2NTUzMTYwNjgsImV4cCI6MTY1NTkyMDg2OH0.5vTOaqS77Yl-4cYT1WM5DdKbo8-I__bxB2DX5kyFaTA' \
+--header 'Content-Type: text/plain' \
+--data-raw '{
+  "url": "https://some.url/",
+  "isActive": true
+}'
+```
+
+Response body:
+
+```{code-block} json
+{
+  "url": "https://some.url",
+  "isActive": true
+}
+```
+
+Webhook state is returned as a result for the successful request: 
+* `url` - the URL for a callback request,
+* `isActive` - value, indicating that the webhook is turned active (`true`), or disabled (`false`).
+
+## Deleting webhook
+
+`deleteWebhook` request is used to delete unnecessary webhook. The endpoint is the same as for `createWebhook` request, but the HTTP DELETE method is used. The space identifier is passed as a part of the request URL (see [Creating a space](space_room_create.md)).
+
+Complete request specification can be found in [Swagger](https://moodhood.online/doc/#/WebHook/DeleteWebHook).
+
+Example of `deleteWebhook` request:
+
+**DELETE https://moodhood.online/v1/spaces/60d55c0eb9ef88ab17b0aabb/webhook**
+
+where *60d55c0eb9ef88ab17b0aabb* is the space identifier.
+
+Example of cURL code:
+
+```{code-block}
+curl --location --request DELETE 'https://moodhood.online/v1/spaces/62bcc725721aeb718445daf7/webhook' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmEwOWZjNzAyZjg2Y2UzN2E5Mzg2ZjEiLCJhdWQiOiJjbGllbnQiLCJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJjSWQiOiI2MmEwOWZjNzAyZjg2Y2UzN2E5Mzg2ZjEiLCJqdGkiOiI1ZGxDZ0pxRzZ1dFFycjNqSTFjSmMiLCJpYXQiOjE2NTUzMTYwNjgsImV4cCI6MTY1NTkyMDg2OH0.5vTOaqS77Yl-4cYT1WM5DdKbo8-I__bxB2DX5kyFaTA' \
+--header 'Content-Type: text/plain' \
+```
+
+Webhook for the space will be deleted as a result for the successful request.
+
+## Updating the secret key to validate webhook 
+
+If a validation check for the callback data fails and the secret key is compromised, it is necessary to renew the key. `refreshSecret` request is used to do this. The space identifier is passed as a part of the request URL (see [Creating a space](space_room_create.md)). The HTTP PUT method is used. 
+
+Complete request specification can be found in [Swagger](https://moodhood.online/doc/#/WebHook/RefreshSecretWebHook).
+
+Example of `refreshSecret` request:
+
+**PUT https://moodhood.online/v1/spaces/60d55c0eb9ef88ab17b0aabb/webhook/refresh-secret**
+
+where *60d55c0eb9ef88ab17b0aabb* is the space identifier.
+
+Example of cURL code:
+
+```{code-block}
+curl --location --request PUT 'https://moodhood.online/v1/spaces/62bcc725721aeb718445daf7/webhook/refresh-secret' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmEwOWZjNzAyZjg2Y2UzN2E5Mzg2ZjEiLCJhdWQiOiJjbGllbnQiLCJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJjSWQiOiI2MmEwOWZjNzAyZjg2Y2UzN2E5Mzg2ZjEiLCJqdGkiOiI1ZGxDZ0pxRzZ1dFFycjNqSTFjSmMiLCJpYXQiOjE2NTUzMTYwNjgsImV4cCI6MTY1NTkyMDg2OH0.5vTOaqS77Yl-4cYT1WM5DdKbo8-I__bxB2DX5kyFaTA' \
+--header 'Content-Type: text/plain' \
+```
+
+Response body:
+
+```{code-block}
+{
+  "url": "https://some.url",
+  "secret": "g7r0gOSKiQ59prCGXo1H50PACb5ca1mD",
+  "isActive": true
+}
+```
+
+Server generates a new `secret` value and returns updated webhook data as a result for the successful request.
